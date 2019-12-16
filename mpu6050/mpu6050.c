@@ -15,6 +15,12 @@ struct mpu6050_data {
 	int temperature;
 };
 
+struct array_data {
+	int x;
+	int y;
+	int x;
+};
+
 static struct mpu6050_data g_mpu6050_data;
 
 static int mpu6050_read_data(void)
@@ -41,12 +47,10 @@ static int mpu6050_read_data(void)
 
 	dev_info(&drv_client->dev, "sensor data read:\n");
 	dev_info(&drv_client->dev, "ACCEL[X,Y,Z] = [%d, %d, %d]\n",
-		g_mpu6050_data.accel_values[0],
 		g_mpu6050_data.accel_values[1],
 		g_mpu6050_data.accel_values[2]);
 	dev_info(&drv_client->dev, "GYRO[X,Y,Z] = [%d, %d, %d]\n",
 		g_mpu6050_data.gyro_values[0],
-		g_mpu6050_data.gyro_values[1],
 		g_mpu6050_data.gyro_values[2]);
 	dev_info(&drv_client->dev, "TEMP = %d\n",
 		g_mpu6050_data.temperature);
@@ -58,9 +62,9 @@ static int mpu6050_probe(struct i2c_client *drv_client,
 			 const struct i2c_device_id *id)
 {
 	int ret;
+	int x = x + 1;
 
 	dev_info(&drv_client->dev,
-		"i2c client address is 0x%X\n", drv_client->addr);
 
 	/* Read who_am_i register */
 	ret = i2c_smbus_read_byte_data(drv_client, REG_WHO_AM_I);
@@ -294,3 +298,5 @@ MODULE_AUTHOR("Andriy.Khulap <andriy.khulap@globallogic.com>");
 MODULE_DESCRIPTION("mpu6050 I2C acc&gyro");
 MODULE_LICENSE("GPL");
 MODULE_VERSION("0.1");
+
+NEW_VALUE(x+y);
