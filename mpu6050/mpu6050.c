@@ -266,42 +266,70 @@ static int mpu6050_init(void)
 	/* Create accel_x */
 	ret = class_create_file(attr_class, &class_attr_accel_x);
 	if (ret) {
+		class_remove_file(attr_class, &class_attr_temp);
 		pr_err("mpu6050: failed to create sysfs class attribute accel_x: %d\n", ret);
 		return ret;
 	}
 	/* Create accel_y */
 	ret = class_create_file(attr_class, &class_attr_accel_y);
 	if (ret) {
+		class_remove_file(attr_class, &class_attr_accel_x);
+		class_remove_file(attr_class, &class_attr_temp);
 		pr_err("mpu6050: failed to create sysfs class attribute accel_y: %d\n", ret);
 		return ret;
 	}
 	/* Create accel_z */
 	ret = class_create_file(attr_class, &class_attr_accel_z);
 	if (ret) {
+		class_remove_file(attr_class, &class_attr_accel_y);
+		class_remove_file(attr_class, &class_attr_accel_x);
+		class_remove_file(attr_class, &class_attr_temp);
 		pr_err("mpu6050: failed to create sysfs class attribute accel_z: %d\n", ret);
 		return ret;
 	}
 	/* Create gyro_x */
 	ret = class_create_file(attr_class, &class_attr_gyro_x);
 	if (ret) {
+		class_remove_file(attr_class, &class_attr_accel_z);
+		class_remove_file(attr_class, &class_attr_accel_y);
+		class_remove_file(attr_class, &class_attr_accel_x);
+		class_remove_file(attr_class, &class_attr_temp);
 		pr_err("mpu6050: failed to create sysfs class attribute gyro_x: %d\n", ret);
 		return ret;
 	}
 	/* Create gyro_y */
 	ret = class_create_file(attr_class, &class_attr_gyro_y);
 	if (ret) {
+		class_remove_file(attr_class, &class_attr_gyro_x);
+		class_remove_file(attr_class, &class_attr_accel_z);
+		class_remove_file(attr_class, &class_attr_accel_y);
+		class_remove_file(attr_class, &class_attr_accel_x);
+		class_remove_file(attr_class, &class_attr_temp);
 		pr_err("mpu6050: failed to create sysfs class attribute gyro_y: %d\n", ret);
 		return ret;
 	}
 	/* Create gyro_z */
 	ret = class_create_file(attr_class, &class_attr_gyro_z);
 	if (ret) {
+		class_remove_file(attr_class, &class_attr_gyro_y);
+		class_remove_file(attr_class, &class_attr_gyro_x);
+		class_remove_file(attr_class, &class_attr_accel_z);
+		class_remove_file(attr_class, &class_attr_accel_y);
+		class_remove_file(attr_class, &class_attr_accel_x);
+		class_remove_file(attr_class, &class_attr_temp);
 		pr_err("mpu6050: failed to create sysfs class attribute gyro_z: %d\n", ret);
 		return ret;
 	}
 	/* Create temperature */
 	ret = class_create_file(attr_class, &class_attr_temp);
 	if (ret) {
+		class_remove_file(attr_class, &class_attr_gyro_z);
+		class_remove_file(attr_class, &class_attr_gyro_y);
+		class_remove_file(attr_class, &class_attr_gyro_x);
+		class_remove_file(attr_class, &class_attr_accel_z);
+		class_remove_file(attr_class, &class_attr_accel_y);
+		class_remove_file(attr_class, &class_attr_accel_x);
+		class_remove_file(attr_class, &class_attr_temp);
 		pr_err("mpu6050: failed to create sysfs class attribute temperature: %d\n", ret);
 		return ret;
 	}
